@@ -10,17 +10,32 @@
         <p style="color: green">{{ session('success') }}</p>
     @endif
 
+    <form method="GET" action="{{ route('alunos.index') }}">
+        <input type="text" name="nome" placeholder="Buscar por nome"
+               value="{{ request('nome') }}">
+
+        <input type="number" name="idade" placeholder="Filtrar por idade"
+               value="{{ request('idade') }}">
+
+        <input type="number" name="nota" placeholder="Filtrar por nota"
+               value="{{ request('nota') }}">
+
+        <button type="submit">Filtrar</button>
+
+        <a href="{{ route('alunos.index') }}">
+            <button type="button">Limpar</button>
+        </a>
+    </form>
+
     <table border="1" cellpadding="5">
         <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Idade</th>
             <th>Nota</th>
             <th>Ações</th>
         </tr>
-        @foreach($alunos as $aluno)
+        @forelse($alunos as $aluno)
             <tr>
-                <td>{{ $aluno->id }}</td>
                 <td>{{ $aluno->nome }}</td>
                 <td>{{ $aluno->idade }}</td>
                 <td>{{ $aluno->nota }}</td>
@@ -34,9 +49,13 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="4">Nenhum aluno encontrado.</td>
+            </tr>
+        @endforelse
     </table>
 
-    {{ $alunos->links() }}
+    {{ $alunos->links('pagination::simple-default') }}
 
 @endsection

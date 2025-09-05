@@ -10,9 +10,26 @@ class AlunoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $alunos = Aluno::paginate(5); // adiciona paginação automática
+        $query = Aluno::query();
+
+        if ($request->filled('nome')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        if ($request->filled('idade')) {
+            $query->where('idade', $request->idade);
+        }
+
+        if ($request->filled('nota')) {
+            $query->where('nota', $request->nota);
+        }
+
+        $alunos = $query->orderBy('nome')->paginate(5);
+
+        $alunos->appends($request->all());
+
         return view('alunos.index', compact('alunos'));
     }
 
