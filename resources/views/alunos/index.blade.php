@@ -17,7 +17,7 @@
         <input type="number" name="idade" placeholder="Filtrar por idade"
                value="{{ request('idade') }}">
 
-        <input type="number" name="nota" placeholder="Filtrar por nota"
+        <input type="number" step="0.1" name="nota" placeholder="Filtrar por nota"
                value="{{ request('nota') }}">
 
         <button type="submit">Filtrar</button>
