@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@php
+    /**
+    * @var \App\Models\Aluno $aluno
+    */
+@endphp
+
 @section('content')
 
     <h1>Lista de Alunos</h1>
@@ -34,6 +40,7 @@
             <th>Nota</th>
             <th>Ações</th>
         </tr>
+
         @forelse($alunos as $aluno)
             <tr>
                 <td>{{ $aluno->nome }}</td>

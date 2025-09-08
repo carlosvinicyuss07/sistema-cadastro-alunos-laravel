@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexAlunoRequest;
+use App\Http\Requests\StoreAlunoRequest;
+use App\Http\Requests\UpdateAlunoRequest;
 use App\Models\Aluno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlunoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(IndexAlunoRequest $request)
     {
         $query = Aluno::query();
 
@@ -44,18 +48,23 @@ class AlunoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAlunoRequest $request)
     {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'idade' => 'required|integer',
-            'nota' => 'required|numeric',
-        ]);
 
-        Aluno::create($request->all());
+        try {
+            DB::transaction(function () use ($request) {
+                Aluno::create($request->validated());
+            });
 
-        return redirect()->route('alunos.index')
-                        ->with('success', 'Aluno cadastrado com sucesso!');
+            return redirect()
+                ->route('alunos.index')
+                ->with('success', 'Aluno cadastrado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('alunos.index')
+                ->with('error', 'Erro ao cadastrar aluno!');
+        }
+
     }
 
     /**
@@ -77,18 +86,26 @@ class AlunoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Aluno $aluno)
+    public function update(UpdateAlunoRequest $request, Aluno $aluno)
     {
-        $request->validate([
-           'nome' => 'required|string|max:255',
-           'idade' => 'required|integer',
-           'nota' => 'required|numeric',
-        ]);
 
-        $aluno->update($request->all());
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('alunos.index')
-                        ->with('success', 'Aluno atualizado com sucesso!');
+            $aluno->update($request->validated());
+            DB::commit();
+
+            return redirect()
+                ->route('alunos.index')
+                ->with('success', 'Aluno atualizado com sucesso!');
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('alunos.index')
+                ->with('error', 'Erro ao atualizar aluno!');
+        }
+
     }
 
     /**
@@ -96,9 +113,22 @@ class AlunoController extends Controller
      */
     public function destroy(Aluno $aluno)
     {
-        $aluno->delete();
+        try {
 
-        return redirect()->route('alunos.index')
-                        ->with('success', 'Aluno removido com sucesso!');
+            DB::beginTransaction();
+            $aluno->delete();
+            DB::commit();
+
+            return redirect()
+                ->route('alunos.index')
+                ->with('success', 'Aluno removido com sucesso!');
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('alunos.index')
+                ->with('error', 'Erro ao remover aluno!');
+        }
+
     }
 }
