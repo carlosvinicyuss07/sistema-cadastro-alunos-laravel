@@ -15,10 +15,11 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role == 'admin') {
+        if (auth()->check() && auth()->user()->role === 'admin') {
             return $next($request);
         }
 
-        return redirect()->route('alunos')->with('error', 'Acesso negado!');
+        return redirect()->route('alunos.index')
+            ->with('error', 'Você não tem permissão para acessar essa página.');
     }
 }

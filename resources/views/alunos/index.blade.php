@@ -10,7 +10,9 @@
 
     <h1>Lista de Alunos</h1>
 
-    <a href="{{ route('alunos.create') }}">Cadastrar Novo Aluno</a>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+        <a href="{{ route('alunos.create') }}">Cadastrar Novo Aluno</a>
+    @endif
 
     @if(session('success'))
         <p style="color: green">{{ session('success') }}</p>
@@ -49,13 +51,17 @@
                 <td class="border border-gray-400 px-4 py-2">{{ $aluno->idade }}</td>
                 <td class="border border-gray-400 px-4 py-2">{{ $aluno->nota }}</td>
                 <td class="border border-gray-400 px-4 py-2">
-                    <a href="{{ route('alunos.show', $aluno) }}" class="text-blue-500">Ver</a> |
-                    <a href="{{ route('alunos.edit', $aluno) }}" class="text-green-500">Editar</a> |
-                    <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500">Excluir</button>
-                    </form>
+                    <a href="{{ route('alunos.show', $aluno) }}" class="text-blue-500">Ver</a>
+
+                    @if(Auth::check() && Auth::user()->role === 'admin')
+                        |
+                        <a href="{{ route('alunos.edit', $aluno) }}" class="text-green-500">Editar</a> |
+                        <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Excluir</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

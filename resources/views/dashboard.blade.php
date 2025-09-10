@@ -14,4 +14,8 @@
             </div>
         </div>
     </div>
+
+    @section('content')
+        <a href="{{ route('alunos.index') }}">Voltar</a>
+    @endsection
 </x-app-layout>
