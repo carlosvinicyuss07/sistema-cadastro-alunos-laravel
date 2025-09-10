@@ -33,35 +33,35 @@
         </a>
     </form>
 
-    <table border="1" cellpadding="5">
+    <table class="table-auto border-collapse border border-gray-400 w-full text-left">
+        <thead>
         <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Nota</th>
-            <th>Ações</th>
+            <th class="border border-gray-400 px-4 py-2">Nome</th>
+            <th class="border border-gray-400 px-4 py-2">Idade</th>
+            <th class="border border-gray-400 px-4 py-2">Nota</th>
+            <th class="border border-gray-400 px-4 py-2">Ações</th>
         </tr>
-
-        @forelse($alunos as $aluno)
+        </thead>
+        <tbody>
+        @foreach($alunos as $aluno)
             <tr>
-                <td>{{ $aluno->nome }}</td>
-                <td>{{ $aluno->idade }}</td>
-                <td>{{ $aluno->nota }}</td>
-                <td>
-                    <a href="{{ route('alunos.show', $aluno) }}">Ver</a>
-                    <a href="{{ route('alunos.edit', $aluno) }}">Editar</a>
-                    <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" style="display: inline">
+                <td class="border border-gray-400 px-4 py-2">{{ $aluno->nome }}</td>
+                <td class="border border-gray-400 px-4 py-2">{{ $aluno->idade }}</td>
+                <td class="border border-gray-400 px-4 py-2">{{ $aluno->nota }}</td>
+                <td class="border border-gray-400 px-4 py-2">
+                    <a href="{{ route('alunos.show', $aluno) }}" class="text-blue-500">Ver</a> |
+                    <a href="{{ route('alunos.edit', $aluno) }}" class="text-green-500">Editar</a> |
+                    <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Deseja excluir este aluno?')">Excluir</button>
+                        <button type="submit" class="text-red-500">Excluir</button>
                     </form>
                 </td>
             </tr>
-        @empty
-            <tr>
-                <td colspan="4">Nenhum aluno encontrado.</td>
-            </tr>
-        @endforelse
+        @endforeach
+        </tbody>
     </table>
+
 
     {{ $alunos->links('pagination::simple-default') }}
 
