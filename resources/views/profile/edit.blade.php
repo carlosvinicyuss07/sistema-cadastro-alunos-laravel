@@ -33,5 +33,6 @@
         <p><b>E-mail:</b> {{ $user->email }}</p>
         <p><b>Registrado em:</b> {{ $user->created_at->format('d/m/Y ') }}</p>
         <p><b>Tipo de usuário:</b> {{ ($user->role === 'admin') ? 'Administrador' : 'Comum'}}</p>
+        <a href="{{ route('alunos.index') }}" class="link-botao">Voltar para a Lista de Alunos</a>
     @endsection
 </x-app-layout>

@@ -1,4 +1,19 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Lista de Alunos') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    {{ __("You're logged in!") }}
+                </div>
+            </div>
+        </div>
+    </div>
 
 @php
     /**
@@ -8,10 +23,8 @@
 
 @section('content')
 
-    <h1>Lista de Alunos</h1>
-
     @if(Auth::check() && Auth::user()->role === 'admin')
-        <a href="{{ route('alunos.create') }}">Cadastrar Novo Aluno</a>
+        <a href="{{ route('alunos.create') }}" class="link-botao">Cadastrar Novo Aluno</a>
     @endif
 
     @if(session('success'))
@@ -28,10 +41,10 @@
         <input type="number" step="0.1" name="nota" placeholder="Filtrar por nota"
                value="{{ request('nota') }}">
 
-        <button type="submit">Filtrar</button>
+        <button type="submit" class="link-botao">Filtrar</button>
 
         <a href="{{ route('alunos.index') }}">
-            <button type="button">Limpar</button>
+            <button type="button" class="link-botao-red">Limpar</button>
         </a>
     </form>
 
@@ -72,3 +85,5 @@
     {{ $alunos->links('pagination::simple-default') }}
 
 @endsection
+
+</x-app-layout>

@@ -16,6 +16,6 @@
     </div>
 
     @section('content')
-        <a href="{{ route('alunos.index') }}">Voltar</a>
+        <a href="{{ route('alunos.index') }}" class="link-botao">Voltar para a Lista de Alunos</a>
     @endsection
 </x-app-layout>
