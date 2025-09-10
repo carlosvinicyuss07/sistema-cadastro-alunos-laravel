@@ -26,4 +26,12 @@
             </div>
         </div>
     </div>
+
+    @section('content')
+        <p><b>ID:</b> {{ $user->id }}</p>
+        <p><b>Nome:</b> {{ $user->name }}</p>
+        <p><b>E-mail:</b> {{ $user->email }}</p>
+        <p><b>Registrado em:</b> {{ $user->created_at }}</p>
+        <p><b>Tipo de usuário:</b> {{ ($user->role === 'admin') ? 'Administrador' : 'Comum'}}</p>
+    @endsection
 </x-app-layout>
