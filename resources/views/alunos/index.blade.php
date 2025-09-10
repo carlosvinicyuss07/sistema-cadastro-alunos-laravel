@@ -59,7 +59,7 @@
                         <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-500">Excluir</button>
+                            <button type="submit" class="text-red-500" onclick="return confirm('Tem certeza que deseja excluir esse aluno da lista?')">Excluir</button>
                         </form>
                     @endif
                 </td>

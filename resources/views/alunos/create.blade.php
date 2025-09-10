@@ -2,6 +2,16 @@
 
 @section('content')
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h1>Novo Aluno</h1>
 
     <form action="{{ route('alunos.store') }}" method="POST">

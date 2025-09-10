@@ -42,6 +42,10 @@ class AlunoController extends Controller
      */
     public function create()
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Acesso negado.');
+        }
+
         return view('alunos.create');
     }
 
