@@ -19,6 +19,27 @@ O projeto conta com **autenticação de usuários**, **controle de permissões**
 - 🎨 Layout com Blade Templates.
 
 ---
+## 🖼️ Demonstração do Sistema
+
+- 🔑 Tela de Login
+<img width="1920" height="910" alt="image" src="https://github.com/user-attachments/assets/e34c80fa-abb7-4eb3-9988-d7be2d3b078f" />
+
+- 🔑 Tela de Registro
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/6879a2ad-2e19-4023-9b2c-84bf4265a930" />
+
+- 🏠 Tela Home 
+<img width="1916" height="908" alt="image" src="https://github.com/user-attachments/assets/6b410afd-5c73-4114-902c-172af1ffbd84" />
+
+- 📝 Listagem de Alunos
+<img width="1916" height="908" alt="image" src="https://github.com/user-attachments/assets/84c31569-7e01-4a4c-be7e-6a645631f11f" />
+
+- ➕ Cadastro de Aluno
+<img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/d844e121-f940-431b-9f3b-e7598bc21d3d" />
+
+- ℹ️ Informações do Usuário
+<img width="1916" height="909" alt="image" src="https://github.com/user-attachments/assets/fd7bc7dd-1f7e-48f8-84cf-23032a0d256e" />
+
+---
 
 ## 🛠️ Tecnologias utilizadas
 
